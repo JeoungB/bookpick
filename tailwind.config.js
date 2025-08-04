@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {},
     screens : {
+      /** 반응형 분기점 */
       "max-sm" : {'max' : '649px'},
       "max-md" : {'max' : '767px'},
       "max-lg" : {'max' : '1023px'},
