@@ -10,7 +10,7 @@ function App() {
     <div className="App px-20">
       <Header />
       <BargerMenu open={open} setOpen={setOpen} />
-      <Sidebar />
+      <Sidebar open={open}/>
     </div>
   );
 }
