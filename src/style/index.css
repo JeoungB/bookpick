@@ -58,3 +58,8 @@ code {
   	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* 애니메이션 1초 딜레이 */
+.delay-1000 {
+  animation-delay: 1s;
+}
