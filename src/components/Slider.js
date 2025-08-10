@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { slideBookImg } from "../services/api/book";
 
 const Slider = () => {
   /** 슬라이더 ul 참조 */
@@ -8,13 +9,13 @@ const Slider = () => {
   const animationRef = useRef(null);
   const positionRef = useRef(0);
 
-  //** 무한 슬라이드 */
+  /** 무한 슬라이드 세팅 */
   useEffect(() => {
     const slider = sliderRef.current;
     /** 참조 값이 없으면 멈춰용 */
     if (!slider) return;
 
-    //** 슬라이드 복제 */
+    /** 슬라이드 복제 */
     const slideNodes = slider.querySelectorAll("li");
     const clones = [...slideNodes].map((node) => {
       const clone = node.cloneNode(true);
@@ -23,12 +24,13 @@ const Slider = () => {
       return clone;
     });
 
+    /** 슬라이드 값 구하기 */
     const slideWidth = slideNodes[0].offsetWidth + 40; // 아이템 넓이 (넓이 + margin + padding)
     const totalSlides = slideNodes.length + clones.length; // 기존 아이템 + 복제 아이템 갯수
     const totalWidth = slideWidth * totalSlides; // ul 총 넓이
 
     slider.style.width = `${totalWidth}px`;
-
+    /** 슬라이드 애니메이션 */
     const slideAnimation = () => {
       positionRef.current -= 1;
 
@@ -55,32 +57,8 @@ const Slider = () => {
   return (
     <div className="slide w-full h-60 mt-[50px] overflow-x-hidden bg-gray-800">
       <ul ref={sliderRef} className="slider w-full h-full flex flex-wrap">
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
+              <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
           1
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          2
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          3
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          4
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          5
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          6
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          7
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          8
-        </li>
-        <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          9
         </li>
       </ul>
     </div>

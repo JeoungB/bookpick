@@ -1,7 +1,11 @@
 import Category from "../../components/Category";
 import Slider from "../../components/Slider";
+import { searchBooks } from "../../services/api/book";
 
 const Main = () => {
+
+    searchBooks("베스트 셀러");
+
   return (
     <main className="main w-full relative pt-[150px] flex flex-col items-center">
       {/* 메인 글귀 */}
