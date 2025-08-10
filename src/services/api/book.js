@@ -39,7 +39,7 @@ export const recommendBooks = async () => {
 export const slideBookImg = async () => {
   try {
     let result = await kakaoApi.get("/v3/search/book", {
-      params: { query: "소설", size: 9, target: "title" },
+      params: { query: "소설", size: 15, target: "title" },
     });
     let recommendData = result.data.documents;
     let slideImgs = [...recommendData].map(data => {

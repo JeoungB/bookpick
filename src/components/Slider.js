@@ -20,6 +20,7 @@ const Slider = () => {
   useEffect(() => {
     if (slideImgs.length === 0) return;
     const slider = sliderRef.current;
+    let slideWidth = 0;
     /** 참조 값이 없으면 멈춰용 */
     if (!slider) return;
 
@@ -32,23 +33,30 @@ const Slider = () => {
       return clone;
     });
 
-    /** 슬라이드 값 구하기 */
-    const slideWidth = slideNodes[0].offsetWidth + 40; // 아이템 넓이 (넓이 + margin + padding)
-    const totalSlides = slideNodes.length + clones.length; // 기존 아이템 + 복제 아이템 갯수
-    const totalWidth = slideWidth * totalSlides; // ul 총 넓이
+    /** 유동적인 margin 크기 구하기 */
+    let firstSlideStyle = window.getComputedStyle(slideNodes[0]);
+    let margin = parseInt(firstSlideStyle.marginLeft) + parseInt(firstSlideStyle.marginLeft);
 
-    slider.style.width = `${totalWidth}px`;
+    /** 슬라이드 초기 세팅 */
+    const setSliderSize = () => {
+      slideWidth = slideNodes[0].getBoundingClientRect().width + margin; // 아이템 넓이 (넓이 + margin + padding)
+      const totalSlides = slideNodes.length * 2; // 기존 아이템 + 복제 아이템 갯수
+      const totalWidth = slideWidth * totalSlides; // ul 총 넓이
+      slider.style.width = `${totalWidth}px`;
+    };
+
+    setSliderSize();
+    window.addEventListener("resize", setSliderSize);
 
     /** 슬라이드 애니메이션 */
     const slideAnimation = () => {
-      positionRef.current -= 1;
+      positionRef.current -= 5;
 
       if (Math.abs(positionRef.current) >= slideWidth * slideNodes.length) {
         positionRef.current = 0;
       }
 
       slider.style.transform = `translateX(${positionRef.current}px)`;
-
       animationRef.current = requestAnimationFrame(slideAnimation);
     };
 
@@ -57,27 +65,30 @@ const Slider = () => {
     /** 언마운트 시 초기화 */
     return () => {
       cancelAnimationFrame(animationRef.current);
+      window.removeEventListener("resize", setSliderSize);
       clones.forEach((clone) => slider.removeChild(clone));
       slider.style.transform = "";
       slider.style.width = "";
     };
-    // 서버에서 이미지를 가져오는 과정에서 먼저 슬라이드 렌더링 해버리면 
+    // 서버에서 이미지를 가져오는 과정에서 먼저 슬라이드 렌더링 해버리면
     // li 가 없다고 에러 발생.
     // 의존성 배열에 이미지가 업데이트 될때 실행 할 수 있게 변경.
   }, [slideImgs]);
 
   /** 슬라이드 이미지 렌더 함수 */
-  const renderSlides = () => (
+  const renderSlides = () =>
     slideImgs.map((item, index) => (
-    <li key={index} className="slide-item w-[150px] h-full mx-[20px] flex bg-slate-300">
-      <img className="slide-img" src={item} alt="슬라이드 이미지" />
-    </li>
-    ))
-  );
+      <li
+        key={index}
+        className="slide-item w-[150px] h-full mx-[20px] flex bg-slate-300"
+      >
+        <img className="slide-img" src={item} alt="슬라이드 이미지" />
+      </li>
+    ));
 
   return (
-    <div className="slide w-full h-60 mt-[50px] overflow-x-hidden">
-      <ul ref={sliderRef} className="slider w-full h-full flex flex-wrap">
+    <div className="slide w-screen h-60 mt-[50px] overflow-x-hidden">
+      <ul ref={sliderRef} className="slider w-screen h-full flex flex-wrap bg-slate-950">
         {renderSlides()}
       </ul>
     </div>
