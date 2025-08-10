@@ -7,10 +7,11 @@ const BargerMenu = ({ open, setOpen }) => {
   };
 
   return (
-    <div className="absolute right-5 h-20 flex items-center z-[5]">
+    <div className="right-5 h-20 flex fixed items-center z-[5]">
       <ul
         tabIndex={0}
-        className="berger_menu w-[40px] h-1/2 ml-4 flex z-[5] flex-col justify-center gap-2 cursor-pointer hidden max-lg:flex"
+        role="button"
+        className="berger_menu w-[40px] h-1/2 z-[5] flex-col justify-center gap-2 cursor-pointer hidden max-md:flex"
         onClick={() => setOpen(!open)}
         onKeyDown={bergerEnter}
       >
