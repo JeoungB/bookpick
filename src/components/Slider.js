@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { slideBookImg } from "../services/api/book";
+import { useEffect, useRef } from "react";
+import useBookStore from "../store/bookStore";
 
 const Slider = () => {
   /** 슬라이더 ul 참조 */
@@ -8,9 +8,17 @@ const Slider = () => {
   const sliderRef = useRef(null);
   const animationRef = useRef(null);
   const positionRef = useRef(0);
+  // 이미지 정보 가져오기.
+  const { slideImgs, fetchSlideImg } = useBookStore();
+
+  // 이미지 정보 가져오는 함수.
+  useEffect(() => {
+    fetchSlideImg();
+  }, [fetchSlideImg]);
 
   /** 무한 슬라이드 세팅 */
   useEffect(() => {
+    if (slideImgs.length === 0) return;
     const slider = sliderRef.current;
     /** 참조 값이 없으면 멈춰용 */
     if (!slider) return;
@@ -30,6 +38,7 @@ const Slider = () => {
     const totalWidth = slideWidth * totalSlides; // ul 총 넓이
 
     slider.style.width = `${totalWidth}px`;
+
     /** 슬라이드 애니메이션 */
     const slideAnimation = () => {
       positionRef.current -= 1;
@@ -52,14 +61,24 @@ const Slider = () => {
       slider.style.transform = "";
       slider.style.width = "";
     };
-  }, []);
+    // 서버에서 이미지를 가져오는 과정에서 먼저 슬라이드 렌더링 해버리면 
+    // li 가 없다고 에러 발생.
+    // 의존성 배열에 이미지가 업데이트 될때 실행 할 수 있게 변경.
+  }, [slideImgs]);
+
+  /** 슬라이드 이미지 렌더 함수 */
+  const renderSlides = () => (
+    slideImgs.map((item, index) => (
+    <li key={index} className="slide-item w-[150px] h-full mx-[20px] flex bg-slate-300">
+      <img className="slide-img" src={item} alt="슬라이드 이미지" />
+    </li>
+    ))
+  );
 
   return (
-    <div className="slide w-full h-60 mt-[50px] overflow-x-hidden bg-gray-800">
+    <div className="slide w-full h-60 mt-[50px] overflow-x-hidden">
       <ul ref={sliderRef} className="slider w-full h-full flex flex-wrap">
-              <li className="slide-item w-[150px] h-full mx-[20px] bg-slate-300">
-          1
-        </li>
+        {renderSlides()}
       </ul>
     </div>
   );

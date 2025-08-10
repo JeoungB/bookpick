@@ -18,7 +18,7 @@ export const searchBooks = async (search) => {
     let searchData = result.data.documents;
     return searchData;
   } catch (error) {
-    console.log(`검색한 도서 정보를 가져올 수 없습니다. ${error}`);
+    console.log(`검색한 도서 정보를 가져올 수 없습니다. (API오류) ${error}`);
   }
 };
 
@@ -31,7 +31,7 @@ export const recommendBooks = async () => {
     let recommendData = result.data.documents;
     return recommendData;
   } catch (error) {
-    console.log(`추천 도서 정보를 가져올 수 없습니다. ${error}`);
+    console.log(`추천 도서 정보를 가져올 수 없습니다. (API오류) ${error}`);
   }
 };
 
@@ -47,6 +47,6 @@ export const slideBookImg = async () => {
     });
     return slideImgs;
   } catch (error) {
-    console.log(`슬라이드 도서 이미지를 가져올 수 없습니다. ${error}`);
+    console.log(`슬라이드 도서 이미지를 가져올 수 없습니다. (API오류) ${error}`);
   }
 };
