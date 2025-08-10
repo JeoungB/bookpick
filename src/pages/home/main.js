@@ -7,7 +7,7 @@ const Main = () => {
   searchBooks("베스트 셀러");
 
   return (
-    <main className="main w-full bg-stone-700 relative pt-[150px] flex flex-col items-center">
+    <main className="main w-full max-w-[2000px] overflow-x-hidden relative pt-[150px] flex flex-col items-center">
       {/* 메인 글귀 */}
       <HeroText />
       {/* 책 슬라이더 */}

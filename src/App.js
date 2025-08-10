@@ -8,7 +8,7 @@ function App() {
   /** 사이드 메뉴 오픈 상태 */
   const [open, setOpen] = useState(false);
   return (
-    <div className="App">
+    <div className="App flex justify-center">
       <Header />
       <BargerMenu open={open} setOpen={setOpen} />
       <Sidebar open={open}/>

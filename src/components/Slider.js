@@ -20,7 +20,7 @@ const Slider = () => {
   useEffect(() => {
     if (slideImgs.length === 0) return;
     const slider = sliderRef.current;
-    let slideWidth = 0;
+    let slideWidth;
     /** 참조 값이 없으면 멈춰용 */
     if (!slider) return;
 
@@ -35,14 +35,17 @@ const Slider = () => {
 
     /** 유동적인 margin 크기 구하기 */
     let firstSlideStyle = window.getComputedStyle(slideNodes[0]);
-    let margin = parseInt(firstSlideStyle.marginLeft) + parseInt(firstSlideStyle.marginLeft);
+    let margin =
+      parseInt(firstSlideStyle.marginLeft) +
+      parseInt(firstSlideStyle.marginLeft);
 
     /** 슬라이드 초기 세팅 */
     const setSliderSize = () => {
-      slideWidth = slideNodes[0].getBoundingClientRect().width + margin; // 아이템 넓이 (넓이 + margin + padding)
+      slideWidth = slideNodes[0].offsetWidth + margin; // 아이템 넓이 (넓이 + margin + padding)
       const totalSlides = slideNodes.length * 2; // 기존 아이템 + 복제 아이템 갯수
       const totalWidth = slideWidth * totalSlides; // ul 총 넓이
       slider.style.width = `${totalWidth}px`;
+      
     };
 
     setSliderSize();
@@ -50,7 +53,7 @@ const Slider = () => {
 
     /** 슬라이드 애니메이션 */
     const slideAnimation = () => {
-      positionRef.current -= 5;
+      positionRef.current -= 2;
 
       if (Math.abs(positionRef.current) >= slideWidth * slideNodes.length) {
         positionRef.current = 0;
@@ -87,8 +90,11 @@ const Slider = () => {
     ));
 
   return (
-    <div className="slide w-screen h-60 mt-[50px] overflow-x-hidden">
-      <ul ref={sliderRef} className="slider w-screen h-full flex flex-wrap bg-slate-950">
+    <div className="slide w-full h-60 mt-[50px] overflow-x-hidden">
+      <ul
+        ref={sliderRef}
+        className="slider w-full h-full flex flex-wrap"
+      >
         {renderSlides()}
       </ul>
     </div>
