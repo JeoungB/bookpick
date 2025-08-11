@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
+        // 메인 문구 애니메이션
         fadeUp: {
           "0%": { opacity: 0, transform: "translateY(30px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
@@ -12,6 +13,17 @@ module.exports = {
       animation: {
         fadeUp: 'fadeUp 0.8s ease-out forwards',
         fadeUpSpan : 'fadeUp 1.3s ease-out forwards'
+      },
+      // 폰트
+      fontFamily : {
+         pretendard: [
+          'Pretendard Variable',
+          'Pretendard',
+          'apple-system',
+          'system-ui',
+          'Roboto',
+          'sans-serif'
+        ],
       },
     },
     screens: {

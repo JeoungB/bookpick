@@ -18,20 +18,20 @@ const Header = () => {
         ></input>
         <button
           type="button"
-          className="w-[64.5px] h-10 absolute right-0 border-l-2 border-gray-300 bg-white"
+          className="w-[64.5px] h-10 font-pretendard font-semibold absolute right-0 border-l-2 border-gray-300 bg-white"
         >
           검색
         </button>
       </div>
       {/* 메뉴 */}
       <div className="menu w-[300px] h-full relative ml-5 flex items-center text-l font-bold text-gray-600 max-md:hidden">
-        <button type="button" className="w-[80px] h-10 mx-2">
+        <button type="button" className="w-[80px] h-10 mx-2 font-pretendard">
           커뮤니티
         </button>
-        <button type="button" className="w-[80px] h-10 mx-2 font-sans">
+        <button type="button" className="w-[80px] h-10 mx-2 font-pretendard">
           회원가입
         </button>
-        <button type="button" className="w-[80px] h-10 mx-2">
+        <button type="button" className="w-[80px] h-10 mx-2 font-pretendard">
           로그인
         </button>
       </div>

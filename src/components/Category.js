@@ -1,7 +1,7 @@
 const Category = () => {
   return (
-    <section className="category w-full mt-[50px] flex flex-col items-center px-3">
-      <h2 className="font-sans font-bold text-[1.5rem] text-gray-800">
+    <section className="category w-full mt-[150px] flex flex-col items-center px-10">
+      <h2 className="font-pretendard font-semibold text-[1.5rem] text-black">
         인기 카테고리
       </h2>
       <ul className="category-list w-full flex flex-wrap justify-center gap-5 pt-[30px] max-md:max-w-[500px]">

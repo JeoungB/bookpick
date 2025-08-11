@@ -26,7 +26,7 @@ export const searchBooks = async (search) => {
 export const recommendBooks = async () => {
   try {
     let result = await kakaoApi.get("/v3/search/book", {
-      params: { query: "베스트셀러", size: 1, target: "title" },
+      params: { query: "베스트셀러", size: 9, target: "title" },
     });
     let recommendData = result.data.documents;
     return recommendData;

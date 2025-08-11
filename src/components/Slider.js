@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import useBookStore from "../store/bookStore";
+import { useSlideImg } from "../store/bookStore";
 
 const Slider = () => {
   /** 슬라이더 ul 참조 */
@@ -9,9 +9,9 @@ const Slider = () => {
   const animationRef = useRef(null);
   const positionRef = useRef(0);
   // 이미지 정보 가져오기.
-  const { slideImgs, fetchSlideImg } = useBookStore();
+  const { slideImgs, fetchSlideImg } = useSlideImg();
 
-  // 이미지 정보 가져오는 함수.
+  /** 이미지 정보 가져오는 함수. */ 
   useEffect(() => {
     fetchSlideImg();
   }, [fetchSlideImg]);

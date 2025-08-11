@@ -1,9 +1,10 @@
 import { create } from "zustand";
-import { slideBookImg } from "../services/api/book";
+import { recommendBooks, slideBookImg } from "../services/api/book";
 
 /** 초기상태 */
-const useBookStore = create(set => ({
+ export const useSlideImg = create(set => ({
     slideImgs: [],
+    /** 슬라이드 이미지 */
     fetchSlideImg: async () => {
         try {
             const imgs = await slideBookImg();
@@ -14,4 +15,15 @@ const useBookStore = create(set => ({
     }
 }));
 
-export default useBookStore;
+ export const useRecommendBooks = create(set => ({
+    recommendBooks: [],
+    /** 슬라이드 이미지 */
+    fetchRecommend: async () => {
+        try {
+            const recommends = await recommendBooks();
+            set({recommendBooks: recommends})
+        } catch(error) {
+            console.error(`추천 불러오기 실패 ( 스토어 오류 ) ${error}`);
+        }
+    }
+}));
