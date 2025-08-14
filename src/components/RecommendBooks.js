@@ -6,12 +6,13 @@ const Recommend = () => {
   const slider = useRef(null); // 전체 슬라이드
   const slide = slider.current;
   const slideList = slider.current?.querySelectorAll(".slide");
+  const sliderWidth = slide?.getBoundingClientRect().width;
   let position = 0; // 슬라이드 움직이는 위치값.
   let touchStartX = 0; // 터치 시작점 좌표.
-  let touchCurrentX = 0; // 현재 마우스 좌표.
   let diff = 0; // 마우스 이동 거리.
   let isTouch = false; // 터치를 시작 했는지.
-  let currentSlideX = 0;
+  let currentSlideX = 0; // slide 실제 translateX 값.
+  let btnCount = 1; // 버튼 카운트
 
   /** 추천도서 가져오는 함수. */
   useEffect(() => {
@@ -27,33 +28,45 @@ const Recommend = () => {
     ));
 
   /** 버튼 선택시 슬라이드 이동 함수 */
+  // 끝에 다다르면 버튼 비활성화 시키기
   const slideBtnHandler = (e) => {
-    let target = e.target;
-    const slideWidth = slide.getBoundingClientRect().width / 3;
+    const target = e.target;
+    const slideWidth = slide?.getBoundingClientRect().width / Array.from(slideList).length;
+    const minTranslate = 0;
+    const maxTranslate = slideList[0].offsetWidth - sliderWidth;
+    getTranslateX();
     if (target.className.indexOf("prev") === 0) {
-      position += slideWidth;
-      slide.style.transform = `translateX(${position}px)`;
+      if(currentSlideX === 0) return;
+      let slidePoint = slideWidth * btnCount;
+      if(currentSlideX >= -slidePoint) btnCount -= 1;
+      let resultX = -(btnCount * slideWidth);
+      if (resultX > minTranslate) resultX = minTranslate;
+      slide.style.transform = `translateX(${resultX}px)`;
+      console.log(btnCount);
     }
 
     if (target.className.indexOf("next") === 0) {
-      position -= slideWidth;
-      slide.style.transform = `translateX(${position}px)`;
+      if(currentSlideX === maxTranslate) return;
+      let slidePoint = slideWidth * btnCount;
+      if(currentSlideX <= -slidePoint) btnCount += 1;
+      let resultX = -(btnCount * slideWidth);
+      if (resultX < maxTranslate) resultX = maxTranslate;
+      slide.style.transform = `translateX(${resultX}px)`;
+      console.log(btnCount);
     }
   };
 
   /** 터치 슬라이드 함수 */
-  slideList?.forEach((list) => {
-    const parent = list.parentElement;
-    /** 클릭 시 */
+  const slideMove = () => {
+    if (!slideList) return;
+
     slide.addEventListener("pointerdown", (e) => {
       // 마우스 비활성화 제거.
       e.preventDefault();
       isTouch = true;
       getTranslateX();
-      //getBoundingClientRect 로 slide요소의 위치 및 크기 정보 구하기.
-      let rect = parent.getBoundingClientRect();
-      // 클릭한 위치정보 - slide의 left 거리.
-      touchStartX = e.clientX - rect.left;
+      // 클릭한 위치정보
+      touchStartX = e.clientX;
     });
 
     slide.addEventListener("pointerup", (e) => {
@@ -62,19 +75,26 @@ const Recommend = () => {
 
     slide.addEventListener("pointermove", (e) => {
       if (!isTouch) return;
-      touchCurrentX = e.clientX; // 움직임 실시간 거리.
-      diff = touchStartX - touchCurrentX;
-      //console.log(diff, "마우스 이동거리")
-      //console.log(currentSlideX, "slideX 위치")
+      const minTranslate = 0;
+      const maxTranslate = slideList[0].offsetWidth - sliderWidth;
+      // 실시간 마우스 움직임 - 시작점
+      diff = e.clientX - touchStartX;
       // 현재 slideX 값 + 마우스 이동 거리 = 실제 이동해야 할 거리.
       let resultX = currentSlideX + diff;
-      slide.style.transform = `translateX(${resultX + currentSlideX}px)`;
+
+      // 슬라이드 움직임 제한.
+      if (resultX > minTranslate) resultX = minTranslate;
+      if (resultX < maxTranslate) resultX = maxTranslate;
+
+      slide.style.transform = `translateX(${resultX}px)`;
     });
 
     slide.addEventListener("pointerleave", (e) => {
       isTouch = false;
     });
-  });
+  };
+
+  slideMove();
 
   /** 움직인 이후 slide의 실시간 X 위치값 구하는 함수 */
   const getTranslateX = () => {
@@ -83,7 +103,9 @@ const Recommend = () => {
     // transform 의 행렬 형태로 해석.
     // ex) transform: translateX(100px) -> matrix(1, 0, 0, 1, 100, 0) : 실제 저장값.
     // 브라우저 지원 이슈로 인해 두가지 사용.
-    const matrix = new (window.DOMMatrix || window.WebKitCSSMatrix)(currentStyle.transform);
+    const matrix = new (window.DOMMatrix || window.WebKitCSSMatrix)(
+      currentStyle.transform
+    );
     currentSlideX = matrix.m41;
   };
 

@@ -34,6 +34,7 @@ const Slider = () => {
     });
 
     /** 유동적인 margin 크기 구하기 */
+    // 실제로 적용된 ( css가 계산된 이후 ) 결과값.
     let firstSlideStyle = window.getComputedStyle(slideNodes[0]);
     let margin =
       parseInt(firstSlideStyle.marginLeft) +
