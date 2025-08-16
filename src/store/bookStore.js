@@ -17,7 +17,7 @@ import { recommendBooks, slideBookImg } from "../services/api/book";
 
  export const useRecommendBooks = create(set => ({
     recommendBooks: [],
-    /** 슬라이드 이미지 */
+    /** 추천 슬라이드 이미지 */
     fetchRecommend: async () => {
         try {
             const recommends = await recommendBooks();

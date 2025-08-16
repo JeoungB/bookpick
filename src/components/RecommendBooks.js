@@ -30,34 +30,35 @@ const Recommend = () => {
   //     // slice : 배열을 범위내로 잘라서 새로운 배열을 반환. (0, 3) : 인덱스 0부터 3직전 까지 자름.
   //     slideSection.push(recommendBooks.slice(i, i + slideSectionSize));
   //   }
-    
+
   //   return slideSection?.map((section, sectionIndex) => {
   //     <section key={sectionIndex} className="slide w-1/3 z-[1] h-full bg-orange-600">
-        
+
   //     </section>
   //   });
   // };
 
-    // recommendBooks.map((item, index) => {
-    //   return (
-    //     <li key={index} className="w-[250px] h-[300px] mx-[30px] bg-neutral-200">
-    //     <img src={item.thumbnail} alt="추천 책 이미지" />
-    //     </li>
-    //   );
-    // })
+  // recommendBooks.map((item, index) => {
+  //   return (
+  //     <li key={index} className="w-[250px] h-[300px] mx-[30px] bg-neutral-200">
+  //     <img src={item.thumbnail} alt="추천 책 이미지" />
+  //     </li>
+  //   );
+  // })
 
   /** 버튼 선택시 슬라이드 이동 함수 */
   // 끝에 다다르면 버튼 비활성화 시키기
   const slideBtnHandler = (e) => {
     const target = e.target;
-    const slideWidth = slide?.getBoundingClientRect().width / Array.from(slideList).length;
+    const slideWidth =
+      slide?.getBoundingClientRect().width / Array.from(slideList).length;
     const minTranslate = 0;
     const maxTranslate = slideList[0].offsetWidth - sliderWidth;
     getTranslateX();
     if (target.className.indexOf("prev") === 0) {
-      if(currentSlideX === 0) return;
+      if (currentSlideX === 0) return;
       let slidePoint = slideWidth * btnCount;
-      if(currentSlideX >= -slidePoint) btnCount -= 1;
+      if (currentSlideX >= -slidePoint) btnCount -= 1;
       let resultX = -(btnCount * slideWidth);
       if (resultX > minTranslate) resultX = minTranslate;
       slide.style.transform = `translateX(${resultX}px)`;
@@ -65,9 +66,9 @@ const Recommend = () => {
     }
 
     if (target.className.indexOf("next") === 0) {
-      if(currentSlideX === maxTranslate) return;
+      if (currentSlideX === maxTranslate) return;
       let slidePoint = slideWidth * btnCount;
-      if(currentSlideX <= -slidePoint) btnCount += 1;
+      if (currentSlideX <= -slidePoint) btnCount += 1;
       let resultX = -(btnCount * slideWidth);
       if (resultX < maxTranslate) resultX = maxTranslate;
       slide.style.transform = `translateX(${resultX}px)`;
@@ -127,10 +128,10 @@ const Recommend = () => {
     );
     currentSlideX = matrix.m41;
   };
-  let tt = [1, 2, 3]
+
   return (
     <section className="recommend mt-[100px] w-[1000px] h-[400px] flex flex-col relative">
-      <h2 className="font-pretendard font-semibold text-[1.3rem] text-black">
+      <h2 className="font-pretendard font-semibold text-[1.3rem] pl-20 text-black">
         추천 도서{" "}
         <span
           role="button"
@@ -141,11 +142,17 @@ const Recommend = () => {
         </span>
       </h2>
       {/* 추천 슬라이드 */}
-      <div className="recommend-slide_container relative mt-[30px] w-full h-full overflow-x-hidden">
+      <div className="recommend-slide_container relative mt-[30px] w-full h-full overflow-hidden pt-[13px]">
         <button
           onClick={slideBtnHandler}
           className="prev-btn absolute ml-5 left-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full"
-        ><img src={arrow} alt="화살표 이미지" className="relative rotate-180 left-1 pointer-events-none" /></button>
+        >
+          <img
+            src={arrow}
+            alt="화살표 이미지"
+            className="relative rotate-180 left-1 pointer-events-none"
+          />
+        </button>
         {/* 전체 슬라이드 */}
         <div
           id="recommend-slider"
@@ -155,25 +162,67 @@ const Recommend = () => {
           {/* 3등분 슬라이드 */}
           {/* 여기 slide가 위에서 먼저 불러오는데 map같은 조건 써서 없으니까 에러가 뜸 */}
           <section className="slide w-1/3 z-[1] h-full flex justify-center">
-            {recommendBooks.slice(0, 3).map((book, index) => (<li key={index} className="w-[200px] h-[150px] mx-[30px] flex justify-center overflow-hidden bg-gray-500">
-         <img src={book.thumbnail} alt="추천 책 이미지" className="absolute" />
-         </li>))}
+            {recommendBooks.slice(0, 3).map((book, index) => (
+              <li
+                key={index}
+                className="w-[300px] h-[250px] mx-[30px] flex justify-center"
+              >
+                <img
+                  src={book.thumbnail}
+                  alt="추천 책 이미지"
+                  className="shadow-lg cursor-pointer hover:scale-[1.1] transition ease-in shadow-black"
+                />
+                <p className="absolute bottom-8 font-pretendard font-semibold w-[200px] text-center bg-orange-200 truncate ">
+                  {book.title}
+                </p>
+              </li>
+            ))}
           </section>
-                    <section className="slide w-1/3 z-[1] h-full flex justify-center">
-            {recommendBooks.slice(3, 6).map((book, index) => (<li key={index} className="w-[150px] h-[150px] mx-[30px] flex flex-col bg-gray-500">
-         <img src={book.thumbnail} alt="추천 책 이미지" className="" />
-         </li>))}
+          <section className="slide w-1/3 z-[1] h-full flex justify-center">
+            {recommendBooks.slice(3, 6).map((book, index) => (
+              <li
+                key={index}
+                className="w-[300px] h-[250px] mx-[30px] flex justify-center"
+              >
+                <img
+                  src={book.thumbnail}
+                  alt="추천 책 이미지"
+                  className="shadow-lg cursor-pointer hover:scale-[1.1] transition ease-in shadow-black"
+                />
+                <p className="absolute bottom-8 font-pretendard font-semibold w-[200px] text-center bg-orange-200 truncate">
+                  {book.title}
+                </p>
+              </li>
+            ))}
           </section>
-                    <section className="slide w-1/3 z-[1] h-full flex justify-center">
-            {recommendBooks.slice(6, 9).map((book, index) => (<li key={index} className="w-[150px] h-[150px] mx-[30px] flex flex-col bg-gray-500">
-         <img src={book.thumbnail} alt="추천 책 이미지" className="" />
-         </li>))}
+          <section className="slide w-1/3 z-[1] h-full flex justify-center">
+            {recommendBooks.slice(6, 9).map((book, index) => (
+              <li
+                key={index}
+                className="w-[300px] h-[250px] mx-[30px] flex justify-center"
+              >
+                <img
+                  src={book.thumbnail}
+                  alt="추천 책 이미지"
+                  className="shadow-lg cursor-pointer hover:scale-[1.1] transition ease-in shadow-black"
+                />
+                <p className="absolute bottom-8 font-pretendard font-semibold w-[200px] text-center bg-orange-200 truncate">
+                  {book.title}
+                </p>
+              </li>
+            ))}
           </section>
         </div>
         <button
           onClick={slideBtnHandler}
           className="next-btn absolute mr-5 right-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full"
-        ><img src={arrow} alt="화살표 이미지" className="relative right-1 pointer-events-none" /></button>
+        >
+          <img
+            src={arrow}
+            alt="화살표 이미지"
+            className="relative right-1 pointer-events-none"
+          />
+        </button>
       </div>
     </section>
   );
