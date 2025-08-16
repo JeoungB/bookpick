@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecommendBooks } from "../store/bookStore";
+import arrow from "../assets/화살표.png";
 
 const Recommend = () => {
   const { recommendBooks, fetchRecommend } = useRecommendBooks();
@@ -20,12 +21,30 @@ const Recommend = () => {
   }, [fetchRecommend]);
 
   /** 추천 책 렌더 함수 */
-  const renderRecommend = () =>
-    recommendBooks.map((item, index) => (
-      <li key={index} className="w-[250px] h-[300px] mx-[30px] bg-neutral-200">
-        <img src={item.thumbnail} alt="추천 책 이미지" />
-      </li>
-    ));
+  // const renderRecommend = () => {
+  //   if(!recommendBooks.length || !slideList) return;
+  //   const slideSectionSize = Array.from(slideList).length;
+  //   const slideSection = [];
+
+  //   for(let i = 0 ; i < recommendBooks.length ; i += slideSectionSize) {
+  //     // slice : 배열을 범위내로 잘라서 새로운 배열을 반환. (0, 3) : 인덱스 0부터 3직전 까지 자름.
+  //     slideSection.push(recommendBooks.slice(i, i + slideSectionSize));
+  //   }
+    
+  //   return slideSection?.map((section, sectionIndex) => {
+  //     <section key={sectionIndex} className="slide w-1/3 z-[1] h-full bg-orange-600">
+        
+  //     </section>
+  //   });
+  // };
+
+    // recommendBooks.map((item, index) => {
+    //   return (
+    //     <li key={index} className="w-[250px] h-[300px] mx-[30px] bg-neutral-200">
+    //     <img src={item.thumbnail} alt="추천 책 이미지" />
+    //     </li>
+    //   );
+    // })
 
   /** 버튼 선택시 슬라이드 이동 함수 */
   // 끝에 다다르면 버튼 비활성화 시키기
@@ -108,7 +127,7 @@ const Recommend = () => {
     );
     currentSlideX = matrix.m41;
   };
-
+  let tt = [1, 2, 3]
   return (
     <section className="recommend mt-[100px] w-[1000px] h-[400px] flex flex-col relative">
       <h2 className="font-pretendard font-semibold text-[1.3rem] text-black">
@@ -125,8 +144,8 @@ const Recommend = () => {
       <div className="recommend-slide_container relative mt-[30px] w-full h-full overflow-x-hidden">
         <button
           onClick={slideBtnHandler}
-          className="prev-btn absolute left-0 z-[2] w-[50px] h-[50px] bg-gray-500 rounded-full"
-        ></button>
+          className="prev-btn absolute ml-5 left-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full"
+        ><img src={arrow} alt="화살표 이미지" className="relative rotate-180 left-1 pointer-events-none" /></button>
         {/* 전체 슬라이드 */}
         <div
           id="recommend-slider"
@@ -134,14 +153,27 @@ const Recommend = () => {
           className="recommend-list absolute w-[300%] flex h-full justify-center transition-transform duration-300 ease-out"
         >
           {/* 3등분 슬라이드 */}
-          <section className="slide w-1/3 z-[1] h-full bg-orange-600"></section>
-          <section className="slide w-1/3 z-[1] h-full bg-red-900"></section>
-          <section className="slide w-1/3 z-[1] h-full bg-blue-950"></section>
+          {/* 여기 slide가 위에서 먼저 불러오는데 map같은 조건 써서 없으니까 에러가 뜸 */}
+          <section className="slide w-1/3 z-[1] h-full flex justify-center">
+            {recommendBooks.slice(0, 3).map((book, index) => (<li key={index} className="w-[200px] h-[150px] mx-[30px] flex justify-center overflow-hidden bg-gray-500">
+         <img src={book.thumbnail} alt="추천 책 이미지" className="absolute" />
+         </li>))}
+          </section>
+                    <section className="slide w-1/3 z-[1] h-full flex justify-center">
+            {recommendBooks.slice(3, 6).map((book, index) => (<li key={index} className="w-[150px] h-[150px] mx-[30px] flex flex-col bg-gray-500">
+         <img src={book.thumbnail} alt="추천 책 이미지" className="" />
+         </li>))}
+          </section>
+                    <section className="slide w-1/3 z-[1] h-full flex justify-center">
+            {recommendBooks.slice(6, 9).map((book, index) => (<li key={index} className="w-[150px] h-[150px] mx-[30px] flex flex-col bg-gray-500">
+         <img src={book.thumbnail} alt="추천 책 이미지" className="" />
+         </li>))}
+          </section>
         </div>
         <button
           onClick={slideBtnHandler}
-          className="next-btn absolute right-0 z-[2] w-[50px] h-[50px] bg-gray-500 rounded-full"
-        ></button>
+          className="next-btn absolute mr-5 right-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full"
+        ><img src={arrow} alt="화살표 이미지" className="relative right-1 pointer-events-none" /></button>
       </div>
     </section>
   );
