@@ -64,7 +64,3 @@ code {
 .delay-1000 {
   animation-delay: 1s;
 }
-
-body {
-	background-color: rgba(245, 236, 220, 0.171);
-}

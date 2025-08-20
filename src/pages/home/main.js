@@ -2,6 +2,7 @@ import Category from "../../components/Category";
 import HeroText from "../../components/HeroText";
 import Slider from "../../components/Slider";
 import RecommendBooks from "../../components/RecommendBooks";
+import CommuBanner from "../../components/CommuBanner";
 
 const Main = () => {
 
@@ -15,6 +16,8 @@ const Main = () => {
       <Category />
       {/* 추천 도서 */}
       <RecommendBooks />
+      {/* 커뮤니티 */}
+      <CommuBanner />
     </main>
   );
 };

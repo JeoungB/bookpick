@@ -10,10 +10,10 @@ const kakaoApi = axios.create({
 });
 
 /** 도서 정보 검색 함수 */
-export const searchBooks = async (search) => {
+export const searchBooks = async (keyword) => {
   try {
     let result = await kakaoApi.get("/v3/search/book", {
-      params: { query: search, size: 1, target: "title" },
+      params: { query: keyword, size: 10, target: "title" },
     });
     let searchData = result.data.documents;
     return searchData;
@@ -26,7 +26,7 @@ export const searchBooks = async (search) => {
 export const recommendBooks = async () => {
   try {
     let result = await kakaoApi.get("/v3/search/book", {
-      params: { query: "추천", size: 9, target: "title" },
+      params: { query: "추천", size: 12, target: "title" },
     });
     let recommendData = result.data.documents;
     return recommendData;

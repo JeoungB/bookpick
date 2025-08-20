@@ -29,13 +29,14 @@ module.exports = {
     screens: {
       /** 반응형 분기점 */
       // 모바일
-      "max-sm": { max: "649px" },
+      "max-sm": { min: '320px', max: '479px' },
       // 태블릿
-      "max-md": { max: "767px" },
+      "max-md": { min: '480px', max: '767px' },
       // 노트북
-      "max-lg": { max: "1023px" },
+      "max-lg": { min: '768px', max: '1023px' },
       // 데스크탑
-      "max-xl": { max: "1279px" },
+      "max-xl": { min: '1024px' },
+      "search-bar" : {max : '645px'}
     },
   },
   plugins: [],

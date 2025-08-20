@@ -84,14 +84,14 @@ const Slider = () => {
     slideImgs.map((item, index) => (
       <li
         key={index}
-        className="slide-item w-[150px] h-full mx-[20px] flex bg-slate-300"
+        className="slide-item w-[200px] h-full mx-[20px] flex bg-slate-300"
       >
         <img className="slide-img" src={item} alt="슬라이드 이미지" />
       </li>
     ));
 
   return (
-    <div className="slide w-full h-60 mt-[50px] overflow-x-hidden">
+    <div className="slide w-full h-[400px] mt-[50px] bg-blue-100 py-[50px] overflow-x-hidden">
       <ul
         ref={sliderRef}
         className="slider w-full h-full flex flex-wrap"

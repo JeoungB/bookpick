@@ -7,7 +7,7 @@ const BargerMenu = ({ open, setOpen }) => {
   };
 
   return (
-    <div className="right-5 h-20 flex fixed items-center z-[5]">
+    <div className="right-5 h-24 flex fixed items-center z-[5]">
       <ul
         tabIndex={0}
         role="button"
