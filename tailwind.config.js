@@ -9,10 +9,15 @@ module.exports = {
           "0%": { opacity: 0, transform: "translateY(30px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         fadeUp: 'fadeUp 0.8s ease-out forwards',
-        fadeUpSpan : 'fadeUp 1.3s ease-out forwards'
+        fadeUpSpan : 'fadeUp 1.3s ease-out forwards',
+        shimmer: "shimmer 1.5s infinite"
       },
       // 폰트
       fontFamily : {
@@ -29,9 +34,9 @@ module.exports = {
     screens: {
       /** 반응형 분기점 */
       // 모바일
-      "max-sm": { min: '320px', max: '479px' },
+      "max-sm": { min: '1px', max: '480px' },
       // 태블릿
-      "max-md": { min: '480px', max: '767px' },
+      "max-md": { min: '480px', max: '768px' },
       // 노트북
       "max-lg": { min: '768px', max: '1023px' },
       // 데스크탑

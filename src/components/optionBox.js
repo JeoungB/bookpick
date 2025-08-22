@@ -1,4 +1,4 @@
-import arrow from "../assets/화살표.png";
+import arrow from "../assets/arrow-icon.png";
 import { useEffect, useRef, useState } from "react";
 
 const OptionBox = () => {

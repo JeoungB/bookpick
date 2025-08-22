@@ -11,7 +11,7 @@ const BargerMenu = ({ open, setOpen }) => {
       <ul
         tabIndex={0}
         role="button"
-        className="berger_menu w-[40px] h-1/2 z-[5] flex-col justify-center gap-2 cursor-pointer hidden max-md:flex"
+        className="berger_menu w-[40px] h-1/2 z-[5] flex-col justify-center gap-2 cursor-pointer hidden max-md:flex max-sm:flex"
         onClick={() => setOpen(!open)}
         onKeyDown={bergerEnter}
       >

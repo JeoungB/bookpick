@@ -10,7 +10,7 @@ const Header = () => {
       {/* 검색창 */}
       <SearchBar />
       {/* 메뉴 */}
-      <div className="menu w-[300px] h-full relative ml-5 flex items-center text-l font-bold text-gray-600 max-md:hidden">
+      <div className="menu w-[300px] h-full relative ml-5 flex items-center text-l font-bold text-gray-600 max-md:hidden max-sm:hidden">
         <button type="button" className="w-[80px] h-10 mx-2 font-pretendard">
           커뮤니티
         </button>
