@@ -13,7 +13,7 @@ const kakaoApi = axios.create({
 export const searchBooks = async (keyword) => {
   try {
     let result = await kakaoApi.get("/v3/search/book", {
-      params: { query: keyword, size: 10, target: "title" },
+      params: { query: keyword, size: 100, target: "title" },
     });
     let searchData = result.data.documents;
     return searchData;

@@ -1,9 +1,9 @@
 import arrow from "../assets/arrow-icon.png";
 import { useEffect, useRef, useState } from "react";
 
-const OptionBox = () => {
+const OptionBox = ({value}) => {
   const [popularityOpenMenu, setPopularityOpenMenu] = useState(false);
-  const [menuName, setMenuName] = useState("인기순");
+  const [menuName, setMenuName] = useState("이름순");
   const boxRef = useRef(null);
 
   const popMenuHandler = (e) => {
@@ -43,7 +43,7 @@ const OptionBox = () => {
   return (
     <div className="w-full h-[80px] px-10 flex items-center justify-between border-b-2 border-gray-200">
       <p className="font-pretendard relative font-semibold text-[1.1rem]">
-        전체 <span className="text-blue-600">100</span>건
+        전체 <span className="text-blue-600">{value}</span>건
       </p>
       <div ref={boxRef} className="select-box flex">
         {/* 인기순 */}
@@ -83,7 +83,7 @@ const OptionBox = () => {
               onClick={changeOption}
               className="w-full h-[45px] flex pl-[17px] items-center hover:bg-gray-100"
             >
-              인기순
+              이름순
             </li>
             <li
               role="button"
@@ -91,7 +91,7 @@ const OptionBox = () => {
               onClick={changeOption}
               className="w-full h-[45px] flex pl-[17px] items-center hover:bg-gray-100"
             >
-              이름순
+              가격순
             </li>
           </ul>
         </div>
