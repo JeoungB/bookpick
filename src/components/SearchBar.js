@@ -35,7 +35,7 @@ const SearchBar = () => {
         className="w-5/6 h-10 bg-transparent px-5 focus:outline-none"
       ></input>
       {hasText ? (
-        <button onClick={resetText} className="rounded-full absolute right-[80px] w-[35px] h-[35px] text-[1.2rem] hover:bg-gray-100">X</button>
+        <button type="button" onClick={resetText} className="rounded-full absolute right-[80px] w-[35px] h-[35px] text-[1.2rem] hover:bg-gray-100">X</button>
       ) : null}
       <button
         type="submit"

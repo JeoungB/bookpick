@@ -28,5 +28,18 @@ import { recommendBooks, searchBooks, slideBookImg } from "../services/api/book"
     }
 }));
 
+export const useAlertStore = create(set =>({
+    alert : false,
+    message: "",
+    bookUrl: "",
+    openAlert: ({msg, url}) => set({alert : true, message: msg, bookUrl: url}),
+    closeAlert: () => set({alert : false, message : "", bookUrl: ""})
+}));
+
+export const useSearchBookResultStore = create(set => ({
+    searchBookResult:[],
+    setBookResult: (searchBook) => set({searchBookResult : searchBook}),
+}))
+
 // zustand 는 전역상태관리라서 슬라이드 이미지는 그냥 함수 바로호출해서 사용해도 무방.
 // 많은 컴포넌트에서 전역으로 데이터를 공유할 때 사용 ( 로그인 같은 경우 )

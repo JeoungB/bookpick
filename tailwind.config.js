@@ -13,11 +13,21 @@ module.exports = {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
         },
+        alertUp : {
+          "0%": {transform: "translateY(100%)"},
+          "100%": {transform: "translateY(0%)"},
+        },
+        sideShow : {
+          "0%": {transform: "translateX(100%)"},
+          "100%": {transform: "translateX(0%)"},
+        }
       },
       animation: {
         fadeUp: 'fadeUp 0.8s ease-out forwards',
         fadeUpSpan : 'fadeUp 1.3s ease-out forwards',
-        shimmer: "shimmer 1.5s infinite"
+        shimmer: "shimmer 1.5s infinite",
+        alertUp: "alertUp .3s ease-out",
+        sidebar: "sideShow 1s"
       },
       // 폰트
       fontFamily : {

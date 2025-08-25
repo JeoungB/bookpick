@@ -18,7 +18,7 @@ const Header = () => {
           회원가입
         </button>
         <button type="button" className="w-[80px] h-10 mx-2 font-pretendard">
-          로그인
+          로그인 
         </button>
       </div>
     </header>

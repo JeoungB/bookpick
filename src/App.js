@@ -6,6 +6,7 @@ import { useState } from "react";
 import AppRouter from "./routes/AppRouter";
 import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from "./components/ScrollTop";
+import AlrtBox from "./components/AlrtBox";
 
 function App() {
   /** 사이드 메뉴 오픈 상태 */
@@ -20,6 +21,7 @@ function App() {
       <AppRouter />
       <Footer />
       <ScrollToTop />
+      <AlrtBox />
       </BrowserRouter>
     </div>
   );

@@ -1,9 +1,8 @@
 import arrow from "../assets/arrow-icon.png";
 import { useEffect, useRef, useState } from "react";
 
-const OptionBox = ({value}) => {
+const OptionBox = ({value, option, setOption}) => {
   const [popularityOpenMenu, setPopularityOpenMenu] = useState(false);
-  const [menuName, setMenuName] = useState("이름순");
   const boxRef = useRef(null);
 
   const popMenuHandler = (e) => {
@@ -22,7 +21,7 @@ const OptionBox = ({value}) => {
 
   const changeOption = (e) => {
     let text = e.target.innerText;
-    setMenuName(text);
+    setOption(text);
     setPopularityOpenMenu(false);
   };
 
@@ -41,14 +40,14 @@ const OptionBox = ({value}) => {
   }, []);
 
   return (
-    <div className="w-full h-[80px] px-10 flex items-center justify-between border-b-2 border-gray-200">
+    <div className="w-full h-[80px] px-10 flex items-center justify-between border-b-2 border-gray-200 max-sm:px-1 max-md:px-1">
       <p className="font-pretendard relative font-semibold text-[1.1rem]">
         전체 <span className="text-blue-600">{value}</span>건
       </p>
       <div ref={boxRef} className="select-box flex">
         {/* 인기순 */}
         <div
-          className={`relatve w-[140px] h-[45px] cursor-pointer bg-white font-pretendard ${
+          className={`relatve w-[140px] h-[45px] cursor-pointer bg-white font-pretendard max-md:w-[120px] ${
             popularityOpenMenu ? "rounded-t-md" : "rounded-md"
           }`}
         >
@@ -61,7 +60,7 @@ const OptionBox = ({value}) => {
               popularityOpenMenu ? "rounded-t-md" : "rounded-md"
             }`}
           >
-            <p className="relatve w-full leading-[44px]">{menuName}</p>
+            <p className="relatve w-full leading-[44px]">{option}</p>
             <img
               src={arrow}
               alt="화살표 이미지"
