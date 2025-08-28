@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import searchIcon from "../assets/search-icon.png";
 
 const SearchBar = () => {
   const searchRef = useRef(null);
@@ -23,6 +24,7 @@ const SearchBar = () => {
   };
 
   return (
+    <>
     <form
       onSubmit={searchHandler}
       className="search-bar w-full relative ml-56 border-2 border-black border-opacity-50 rounded flex items-center max-lg:ml-44 max-md:w-3/5 max-md:ml-[180px] max-md:min-w-[290px] search-bar:hidden"
@@ -44,6 +46,8 @@ const SearchBar = () => {
         검색
       </button>
     </form>
+    <img rel="button" tabIndex={0} src={searchIcon} alt="검색 아이콘" className="absolute hidden search-bar:flex w-[30px] right-[100px] cursor-pointer" />
+    </>
   );
 };
 

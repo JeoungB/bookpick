@@ -4,6 +4,7 @@ import arrow from "../assets/arrow-icon.png";
 
 const Recommend = () => {
   const { recommendBooks, fetchRecommend } = useRecommendBooks();
+  const [listResize, setListResize] = useState(4);
   const slider = useRef(null); // 전체 슬라이드
   const slide = slider.current;
   const slideList = slider.current?.querySelectorAll(".slide");
@@ -44,6 +45,21 @@ const Recommend = () => {
   //     </li>
   //   );
   // })
+
+  const booklistResize = () => {
+    if(window.innerWidth <= 768) {
+      setListResize(3);
+    } else {
+      setListResize(4);
+    }
+  }
+
+  useEffect(() => {
+    booklistResize();
+    window.addEventListener('resize', booklistResize);
+
+    return()=>window.removeEventListener('resize', booklistResize);
+  }, []);
 
   /** 버튼 선택시 슬라이드 이동 함수 */
   // 끝에 다다르면 버튼 비활성화 시키기
@@ -127,7 +143,7 @@ const Recommend = () => {
   };
 
   return (
-    <section className="recommend mt-[100px] w-[1000px] h-[500px] flex flex-col relative max-lg:w-[750px] max-lg:h-[420px] max-md:w-[500px] max-md:h-[320px] max-sm:w-[340px] max-sm:h-[210px]">
+    <section className="recommend mt-[100px] w-[1000px] h-[500px] px-4 flex flex-col relative max-lg:w-[800px] max-lg:h-[420px] max-md:px-7 max-md:w-[550px] max-md:h-[320px] max-sm:w-[400px] max-sm:h-[230px] max-sm:px-10">
       <h2 className="font-pretendard relative font-semibold text-[1.3rem] ml-[8px] text-black">
         추천 도서{" "}
         <span
@@ -142,7 +158,7 @@ const Recommend = () => {
       <div className="recommend-slide_container relative w-full h-full overflow-hidden pt-[30px]">
         <button
           onClick={slideBtnHandler}
-          className="prev-btn absolute ml-5 left-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full opacity-[.7] hover:opacity-[1]  max-md:w-[50px] max-md:h-[50px] max-sm:w-[30px] max-sm:h-[30px] max-sm:ml-3"
+          className="prev-btn absolute ml-5 left-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full opacity-[.7] hover:opacity-[1]  max-md:w-[50px] max-md:h-[50px] max-sm:w-[40px] max-sm:h-[40px] max-sm:ml-3"
         >
           <img
             src={arrow}
@@ -159,17 +175,17 @@ const Recommend = () => {
           {/* 3등분 슬라이드 */}
           {/* 여기 slide가 위에서 먼저 불러오는데 없으니까 에러가 뜸 */}
           <section className="slide w-1/3 z-[1] h-full flex justify-center">
-            {recommendBooks.slice(0, 4).map((book, index) => (
+            {recommendBooks.slice(0, listResize).map((book, index) => (
               <li
                 key={index}
-                className="w-[230px] h-[330px] mx-[10px] flex flex-col items-center overflow-hidden max-lg:h-[250px] max-md:h-[160px] max-sm:h-[110px]"
+                className="w-[230px] h-[330px] mx-[10px] flex flex-col items-center overflow-hidden max-lg:h-[250px] max-md:h-[160px] max-sm:h-[130px] max-sm:mx-[5px]"
               >
                 <img
                   src={book.thumbnail}
                   alt="추천 책 이미지"
                   className=" cursor-pointer w-full h-[330px] relative hover:scale-[1.1] transition ease-in max-lg:h-[250px] max-md:h-[160px] max-sm:h-[130px]"
                 />
-                <section className="absolute top-[330px] w-[230px] h-[100px] flex flex-col items-center border-2 border-gray-300  max-lg:w-[167px] max-lg:top-[250px] max-md:w-[105px] max-md:top-[160px] max-sm:w-[65px] max-sm:top-[109px] max-sm:h-[50px]">
+                <section className="absolute top-[330px] w-[223px] h-[100px] flex flex-col items-center border-2 border-gray-300  max-lg:w-[173px] max-lg:top-[250px] max-md:w-[145px] max-md:top-[160px] max-sm:w-[98px] max-sm:top-[129px] max-sm:h-[50px]">
                   <p className="font-pretendard font-semibold w-[200px] leading-[50px] text-center truncate text-orange-500  max-md:w-[90px] max-sm:leading-[30px] max-sm:text-[.5rem] max-sm:w-[50px]">
                     {book.authors[0]}
                   </p>
@@ -180,18 +196,18 @@ const Recommend = () => {
               </li>
             ))}
           </section>
-          <section className="slide w-1/3 z-[1] h-full flex justify-center">
-            {recommendBooks.slice(4, 8).map((book, index) => (
+                    <section className="slide w-1/3 z-[1] h-full flex justify-center">
+            {recommendBooks.slice(listResize, listResize * 2).map((book, index) => (
               <li
                 key={index}
-                className="w-[230px] h-[330px] mx-[10px] flex flex-col items-center overflow-hidden max-lg:h-[250px] max-md:h-[160px] max-sm:h-[110px]"
+                className="w-[230px] h-[330px] mx-[10px] flex flex-col items-center overflow-hidden max-lg:h-[250px] max-md:h-[160px] max-sm:h-[130px] max-sm:mx-[5px]"
               >
                 <img
                   src={book.thumbnail}
                   alt="추천 책 이미지"
                   className=" cursor-pointer w-full h-[330px] relative hover:scale-[1.1] transition ease-in max-lg:h-[250px] max-md:h-[160px] max-sm:h-[130px]"
                 />
-                <section className="absolute top-[330px] w-[230px] h-[100px] flex flex-col items-center border-2 border-gray-300  max-lg:w-[167px] max-lg:top-[250px] max-md:w-[105px] max-md:top-[160px] max-sm:w-[65px] max-sm:top-[109px] max-sm:h-[50px]">
+                <section className="absolute top-[330px] w-[223px] h-[100px] flex flex-col items-center border-2 border-gray-300  max-lg:w-[173px] max-lg:top-[250px] max-md:w-[145px] max-md:top-[160px] max-sm:w-[98px] max-sm:top-[129px] max-sm:h-[50px]">
                   <p className="font-pretendard font-semibold w-[200px] leading-[50px] text-center truncate text-orange-500  max-md:w-[90px] max-sm:leading-[30px] max-sm:text-[.5rem] max-sm:w-[50px]">
                     {book.authors[0]}
                   </p>
@@ -202,18 +218,18 @@ const Recommend = () => {
               </li>
             ))}
           </section>
-          <section className="slide w-1/3 z-[1] h-full flex justify-center">
-            {recommendBooks.slice(8, 12).map((book, index) => (
+                    <section className="slide w-1/3 z-[1] h-full flex justify-center">
+            {recommendBooks.slice(listResize * 2, listResize * 3).map((book, index) => (
               <li
                 key={index}
-                className="w-[230px] h-[330px] mx-[10px] flex flex-col items-center overflow-hidden max-lg:h-[250px] max-md:h-[160px] max-sm:h-[110px]"
+                className="w-[230px] h-[330px] mx-[10px] flex flex-col items-center overflow-hidden max-lg:h-[250px] max-md:h-[160px] max-sm:h-[130px] max-sm:mx-[5px]"
               >
                 <img
                   src={book.thumbnail}
                   alt="추천 책 이미지"
                   className=" cursor-pointer w-full h-[330px] relative hover:scale-[1.1] transition ease-in max-lg:h-[250px] max-md:h-[160px] max-sm:h-[130px]"
                 />
-                <section className="absolute top-[330px] w-[230px] h-[100px] flex flex-col items-center border-2 border-gray-300  max-lg:w-[167px] max-lg:top-[250px] max-md:w-[105px] max-md:top-[160px] max-sm:w-[65px] max-sm:top-[109px] max-sm:h-[50px]">
+                <section className="absolute top-[330px] w-[223px] h-[100px] flex flex-col items-center border-2 border-gray-300  max-lg:w-[173px] max-lg:top-[250px] max-md:w-[145px] max-md:top-[160px] max-sm:w-[98px] max-sm:top-[129px] max-sm:h-[50px]">
                   <p className="font-pretendard font-semibold w-[200px] leading-[50px] text-center truncate text-orange-500  max-md:w-[90px] max-sm:leading-[30px] max-sm:text-[.5rem] max-sm:w-[50px]">
                     {book.authors[0]}
                   </p>
@@ -227,7 +243,7 @@ const Recommend = () => {
         </div>
         <button
           onClick={slideBtnHandler}
-          className="next-btn absolute mr-5 right-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full opacity-[.7] hover:opacity-[1] max-md:w-[50px] max-md:h-[50px] max-sm:w-[30px] max-sm:h-[30px] max-sm:mr-3"
+          className="next-btn absolute mr-5 right-0 top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-lg rounded-full opacity-[.7] hover:opacity-[1] max-md:w-[50px] max-md:h-[50px] max-sm:w-[40px] max-sm:h-[40px] max-sm:mr-3"
         >
           <img
             src={arrow}

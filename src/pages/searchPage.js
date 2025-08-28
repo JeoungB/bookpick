@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { searchBooks } from "../services/api/book";
 import { useSearchParams } from "react-router-dom";
 import OptionBox from "../components/optionBox";
@@ -37,35 +37,32 @@ const SearchPage = () => {
     return () => clearTimeout(time);
   }, [searchBookResult]);
 
-  useEffect(() => {
-    let newData = [...searchBookResult];
-    if (option === "이름순") {
-      newData.sort((a, b) => {
-        // 제목에 키워드가 포함되는 위치 확인
-        const indexA = a.title.indexOf(keyword);
-        const indexB = b.title.indexOf(keyword);
+/** 옵션 선택시 배열 재배치 useMemo로 최적화 ( 렌더링 중 작업 )*/
+const currentItems = useMemo(() => {
+  if (!searchBookResult) return [];
 
-        // 둘 다 포함 안 하면 그대로 순서 유지
-        if (indexA === -1 && indexB === -1) return 0;
-        // 하나만 포함하면 포함된 게 앞으로
-        if (indexA === -1) return 1;
-        if (indexB === -1) return -1;
+  let newData = [...searchBookResult];
 
-        // 둘 다 포함되면 더 앞에 등장하는 게 앞으로
-        return indexA - indexB;
-      });
-    }
+  if (option === "이름순") {
+    newData.sort((a, b) => {
+      const indexA = a.title.indexOf(keyword);
+      const indexB = b.title.indexOf(keyword);
+      if (indexA === -1 && indexB === -1) return 0;
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+      return indexA - indexB;
+    });
+  }
 
-    if (option === "가격순") {
-      newData.sort((a, b) => a.price - b.price);
-    }
-
-    setBookResult(newData);
-  }, [option]);
+  if (option === "가격순") {
+    newData.sort((a, b) => a.price - b.price);
+  }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = searchBookResult?.slice(indexOfFirstItem, indexOfLastItem);
+
+  return newData.slice(indexOfFirstItem, indexOfLastItem);
+}, [searchBookResult, option, currentPage, keyword]);
 
   const totalPages = Math.ceil(searchBookResult.length / itemsPerPage); // 페이지 번호.
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);

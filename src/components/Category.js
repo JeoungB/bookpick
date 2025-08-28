@@ -1,4 +1,3 @@
-//<a href="https://www.flaticon.com/kr/free-icons/" title="적립 아이콘">적립 아이콘 제작자: Freepik - Flaticon</a>
 import novel from "../assets/novel-icon.png"
 import economy from "../assets/economy-icon.png"
 import science from "../assets/science-icon.png"
