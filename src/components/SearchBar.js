@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import searchIcon from "../assets/search-icon.png";
+import arrow from "../assets/arrow-icon.png";
 
-const SearchBar = () => {
+const SearchBar = ({mSearch, setMSearch}) => {
   const searchRef = useRef(null);
   const [hasText, setHasText] = useState("");
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SearchBar = () => {
     <>
     <form
       onSubmit={searchHandler}
-      className="search-bar w-full relative ml-56 border-2 border-black border-opacity-50 rounded flex items-center max-lg:ml-44 max-md:w-3/5 max-md:ml-[180px] max-md:min-w-[290px] search-bar:hidden"
+      className={`search-bar w-full relative ml-56 border-2 border-black border-opacity-50 rounded flex items-center max-lg:ml-44 max-md:w-3/5 max-md:ml-[180px] max-md:min-w-[290px] ${mSearch ? "search-bar:flex search-bar:ml-[50px] search-bar:w-[80%]" : "search-bar:hidden"}`}
     >
       <input
         ref={searchRef}
@@ -46,7 +47,10 @@ const SearchBar = () => {
         검색
       </button>
     </form>
-    <img rel="button" tabIndex={0} src={searchIcon} alt="검색 아이콘" className="absolute hidden search-bar:flex w-[30px] right-[100px] cursor-pointer" />
+    <div className={`absolute -left-4 text-[2rem] cursor-pointer w-[100px] rotate-180 ${mSearch ? "flex" : "hidden"}`} onClick={() => setMSearch(false)}>
+      <img src={arrow} alt="" />
+    </div>
+    <img rel="button" tabIndex={0} src={searchIcon} onClick={() => setMSearch(true)} alt="검색 아이콘" className={`absolute hidden w-[30px] right-[100px] cursor-pointer ${mSearch ? "search-bar:hidden" : "search-bar:flex"}`} />
     </>
   );
 };

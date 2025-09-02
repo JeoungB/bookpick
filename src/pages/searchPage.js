@@ -31,11 +31,11 @@ const SearchPage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if(searchBookResult) return;
-    const time = setTimeout(() => setLoding(false), 10000);
+    if(searchBookResult.length > 0) return;
+    const time = setTimeout(() => setLoding(false), 5000);
 
     return () => clearTimeout(time);
-  }, [searchBookResult]);
+  }, [searchBookResult,keyword]);
 
 /** 옵션 선택시 배열 재배치 useMemo로 최적화 ( 렌더링 중 작업 )*/
 const currentItems = useMemo(() => {

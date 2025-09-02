@@ -51,7 +51,8 @@ module.exports = {
       "max-lg": { min: '768px', max: '1023px' },
       // 데스크탑
       "max-xl": { min: '1024px' },
-      "search-bar" : {max : '645px'}
+      "search-bar" : {max : '645px'},
+      "detail-bar" : {max : "540px"}
     },
   },
   plugins: [],

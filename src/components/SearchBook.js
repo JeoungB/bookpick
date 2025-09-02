@@ -1,22 +1,32 @@
+import { useNavigate } from "react-router-dom";
 import nullImg from "../assets/logo.png";
-import { useAlertStore } from "../store/bookStore";
+import { useAlertStore, useDetailBookStore } from "../store/bookStore";
 
 const SearchBook = ({book, setAlrt}) => {
 
   const date = new Date(book.datetime);
   const formatted = date.toISOString().split("T")[0];
   const { alert ,openAlert } = useAlertStore();
+  const { setDetailBook } = useDetailBookStore();
+  const navi = useNavigate();
 
+  /** 다음 사이트로 이동 함수. */
   const openAlertHandler = (url) => {
     if(alert === true) return;
     openAlert({msg:"판매 사이트로 이동합니다", url: url})
-  }
+  };
+
+  const datailBookHandler = (book, bookIsbn) => {
+    if(!book) return;
+    setDetailBook(book);
+    navi(`/detail/${bookIsbn}`);
+  };
 
   return (
     <li className="w-full flex items-center mb-10 box-border max-md:w-[400px] max-md:flex-col max-md:pb-3 max-sm:pb-[50px]">
       {/* 책 이미지 */}
       <div className="w-full flex justify-between items-center">
-        <div className="w-[150px] h-[200px] relative overflow-hidden flex-shrink-0 bg-gray-500 max-md:w-[120px] max-md:h-[170px] max-sm:w-[100px] max-sm:h-[150px]">
+        <div onClick={() => datailBookHandler(book, book.isbn)} className="w-[150px] h-[200px] relative overflow-hidden flex-shrink-0 bg-gray-500 max-md:w-[120px] max-md:h-[170px] max-sm:w-[100px] max-sm:h-[150px]">
         <img
           src={book.thumbnail || nullImg}
           alt=""

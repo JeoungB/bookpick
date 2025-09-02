@@ -3,7 +3,7 @@ import BargerMenu from "./components/BargerMenu";
 import Sidebar from "./components/Sidebar";
 import Header from "./layouts/main-layout/Header";
 import Footer from "./layouts/main-layout/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppRouter from "./routes/AppRouter";
 import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from "./components/ScrollTop";
@@ -15,11 +15,23 @@ function App() {
   /** 테블릿, 모바일 검색 창 상태 */
   const [mSearch, setMSearch] = useState(false);
 
+  /** 모바일 버전 검색창 켜져있을때 화면이 커질때 상태 초기화 */
+  const searchBarResize = () => {
+    if(window.innerWidth > 645) {
+      setMSearch(false);
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('resize', searchBarResize);
+
+    return()=> window.removeEventListener('resize', searchBarResize);
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
-      <Header />
-      <BargerMenu open={open} setOpen={setOpen} />
+      <Header mSearch={mSearch} setMSearch={setMSearch}/>
+      {mSearch ? null : <BargerMenu open={open} setOpen={setOpen} />}
       <Sidebar open={open}/>
       <AppRouter />
       <Footer />
