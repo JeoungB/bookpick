@@ -6,7 +6,7 @@ import { useState } from "react";
 const Header = ({mSearch, setMSearch}) => {
 
   return (
-    <header className="w-full h-[100px] left-0 border-b border-black-600 bg-white z-[3] fixed flex items-center justify-between">
+    <header className="w-full h-[100px] left-0 border-b border-black-600 bg-white z-[3] fixed flex items-center justify-between shadow-md">
       {/* 로고 */}
       <Logo mSearch={mSearch}/>
       {/* 검색창 */}

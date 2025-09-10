@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App flex flex-col items-center">
       <BrowserRouter>
       <Header mSearch={mSearch} setMSearch={setMSearch}/>
       {mSearch ? null : <BargerMenu open={open} setOpen={setOpen} />}
