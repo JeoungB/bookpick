@@ -46,11 +46,11 @@ module.exports = {
       // 모바일
       "max-sm": { min: '1px', max: '480px' },
       // 태블릿
-      "max-md": { min: '480px', max: '768px' },
+      "max-md": { min: '481px', max: '768px' },
       // 노트북
-      "max-lg": { min: '768px', max: '1023px' },
+      "max-lg": { min: '769px', max: '1279px' },
       // 데스크탑
-      "max-xl": { min: '1024px' },
+      "max-xl": { min: '1280px' },
       "search-bar" : {max : '645px'},
       "detail-bar" : {max : "540px"}
     },

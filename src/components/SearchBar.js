@@ -9,23 +9,29 @@ const SearchBar = ({mSearch, setMSearch}) => {
   const [searchRecordBox, setSearchRecordBox] = useState(false);
   const recordBoxRef = useRef(null);
   const navigate = useNavigate();
+  let recordDatas = JSON.parse(sessionStorage.getItem("search-data"));
+  const [useRecordData, setUseRecordData] = useState(recordDatas || []);
 
   const searchHandler = (e) => {
     e.preventDefault();
     let searchValue = searchRef.current.value;
     if (!searchValue) return;
+    setSearchRecordBox(false)
     navigate(`/search?keyword=${searchValue}`);
     // 검색어 저장.
     let searchValueArray = [];
-    const searchData = JSON.parse(sessionStorage.getItem("search-data"));
-    if(!searchData) {
+    if(!useRecordData || useRecordData.length === 0) {
+    setUseRecordData([...useRecordData, searchValue]);
     searchValueArray.push(searchValue);
     sessionStorage.setItem("search-data", JSON.stringify(searchValueArray));
     }
 
-    if(searchData && searchData.length > 0) {
-      searchData.push(searchValue);
-      sessionStorage.setItem("search-data", JSON.stringify(searchData));
+    if(useRecordData && useRecordData.length > 0) {
+      // 같은 단어면 return
+      if(useRecordData.indexOf(searchValue) !== -1) return;
+      setUseRecordData([...useRecordData, searchValue]);
+      recordDatas.push(searchValue);
+      sessionStorage.setItem("search-data", JSON.stringify(recordDatas));
     }
   };
 
@@ -38,14 +44,23 @@ const SearchBar = ({mSearch, setMSearch}) => {
     setHasText(searchRef.current.value);
   };
 
+  /** 검색기록 창 열기 */
   const recordBoxHandler = () => {
     setSearchRecordBox(true);
   };
 
+  /** 검색기록 창 닫기 */
   const recordBoxClose = (e) => {
     if(recordBoxRef.current && !recordBoxRef.current.contains(e.target)) {
       setSearchRecordBox(false);
     }
+  };
+
+  /** 검색 기록 삭제 */
+  const recordDelete = (index) => {
+    const newRecordData = useRecordData.filter((_, i) => i !== index);
+    setUseRecordData(newRecordData);
+    sessionStorage.setItem("search-data", JSON.stringify(newRecordData));
   };
 
   useEffect(() => {
@@ -83,13 +98,15 @@ const SearchBar = ({mSearch, setMSearch}) => {
       </div>
     </form>
     {/* 검색 기록 */}
-    {searchRecordBox ? <div ref={recordBoxRef} className="search-data absolute font-pretendard pl-5 pr-4 pt-4 shadow-xl w-full border-[1px] top-full border-gray-300 rounded bg-white">
+    {useRecordData && useRecordData.length > 0 && searchRecordBox ? <div ref={recordBoxRef} className="search-data absolute font-pretendard pl-5 pr-4 pt-4 shadow-xl w-full border-[1px] top-full border-gray-300 rounded bg-white">
       <button className="text-[.8rem] absolute right-4 text-right text-blue-600 cursor-pointer">기록 지우기</button>
       <ul className="mt-6">
-        <li className="w-full h-[35px] leading-[35px] flex justify-between pr-4 rounded mb-3">
-          <p tabIndex={0} role="button" className="w-full cursor-pointer rounded mr-4 text-gray-600 hover:bg-slate-300">dddd</p>
-          <p className="cursor-pointer">X</p>
+        {useRecordData.slice(0, 5).map((item, index) => (
+        <li key={index} className="w-full h-[35px] leading-[35px] flex justify-between pr-4 rounded mb-3">
+          <p tabIndex={0} role="button" className="w-full cursor-pointer rounded mr-4 text-gray-600 hover:bg-slate-300">{item}</p>
+          <p className="cursor-pointer" onClick={() => recordDelete(index)}>X</p>
         </li>
+        ))}
       </ul>
     </div> : null}
     </div>
