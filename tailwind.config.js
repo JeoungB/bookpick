@@ -20,6 +20,14 @@ module.exports = {
         sideShow : {
           "0%": {transform: "translateX(100%)"},
           "100%": {transform: "translateX(0%)"},
+        },
+        bannerShow : {
+          "0%": {transform: "translateY(0)", opacity: "0"},
+          "100%": {transform: "translateY(20px)", opacity: "1"}
+        },
+        bannerHidden : {
+          "0%": {transform: "translateY(20px)", opacity: "1"},
+          "100%": {transform: "translateY(0)", opacity: "0"}
         }
       },
       animation: {
@@ -27,7 +35,9 @@ module.exports = {
         fadeUpSpan : 'fadeUp 1.3s ease-out forwards',
         shimmer: "shimmer 1.5s infinite",
         alertUp: "alertUp .3s ease-out",
-        sidebar: "sideShow 1s"
+        sidebar: "sideShow 1s",
+        bannerShow: "bannerShow 1s ease-in-out",
+        bannerHidden: "bannerHidden 1s ease-in-out"
       },
       // 폰트
       fontFamily : {

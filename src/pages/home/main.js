@@ -3,6 +3,7 @@ import HeroText from "../../components/HeroText";
 import Slider from "../../components/Slider";
 import RecommendBooks from "../../components/RecommendBooks";
 import CommuBanner from "../../components/CommuBanner";
+import Banner from "../../components/Banner";
 
 const Main = () => {
 
@@ -12,6 +13,8 @@ const Main = () => {
       <HeroText />
       {/* 책 슬라이더 */}
       <Slider />
+      {/* 배너 */}
+      <Banner />
       {/* 카테고리 */}
       <Category />
       {/* 추천 도서 */}
