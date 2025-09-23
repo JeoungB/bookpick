@@ -12,7 +12,7 @@ const Banner = () => {
     useEffect(() => {
      const interval = setInterval(() => {;
        setBannerAnimation((prev) => !prev);
-     },6000);
+     },5000);
 
      return ()=> clearTimeout(interval);
     }, []);
