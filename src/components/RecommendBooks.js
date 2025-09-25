@@ -112,8 +112,8 @@ const Recommend = () => {
   };
 
   return (
-    <section className="recommend mt-[100px] w-[1000px] h-[400px] px-4 flex flex-col relative max-lg:w-[800px] max-lg:h-[420px] max-md:w-[90%] max-sm:w-[400px] max-sm:h-[230px] max-sm:px-10">
-      <h2 className="font-pretendard relative font-semibold text-[1.3rem] text-black">
+    <section className="recommend mt-[100px] w-[1000px] h-[400px] px-4 flex flex-col relative max-lg:w-[800px] max-lg:h-[420px] max-md:w-full max-md:h-[300px] max-sm:w-full max-sm:h-[70vw]">
+      <h2 className="font-pretendard relative font-semibold text-[1.3rem] text-black max-sm:px-2">
         추천 도서{" "}
         <span
           role="button"
@@ -125,7 +125,7 @@ const Recommend = () => {
       </h2>
         <button
           onClick={slideBtnHandler}
-          className="prev-btn absolute left-[-10px] top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-md shadow-gray-400 rounded-full max-md:hidden"
+          className="prev-btn absolute left-[-10px] top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-md shadow-gray-400 rounded-full max-md:hidden max-sm:hidden"
         >
           <img
             src={arrow}
@@ -141,11 +141,11 @@ const Recommend = () => {
           className="recommend-list absolute w-[300%] flex h-full justify-center transition-transform duration-300 ease-out"
         >
         {recommendArray?.map((books, index) => (
-          <ul key={index} className="slide w-1/3 flex justify-around items-center font-pretendard font-semibold bg-slate-100">
+          <ul key={index} className="slide w-1/3 flex justify-around items-center font-pretendard font-semibold bg-slate-100 max-md:bg-transparent max-md:items-start max-sm:items-start max-sm:bg-transparent">
             {books.map((book, i) => (
-              <li key={i} className="flex flex-col gap-5 w-[160px]" >
-                <img src={book.thumbnail} alt="책 이미지" className="rounded-xl scale-[1]" />
-                <p>{book.title}</p>
+              <li key={i} className="flex flex-col gap-5 w-[160px] max-md:w-[110px] cursor-pointer overflow-hidden max-sm:mx-2" >
+                <img src={book.thumbnail} alt="책 이미지" className="rounded-xl scale-[1] max-md:w-[110px]" />
+                <p className="overflow-hidden text-ellipsis [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] ">{book.title}</p>
               </li>
             ))}
           </ul>
@@ -154,7 +154,7 @@ const Recommend = () => {
       </div>
         <button
           onClick={slideBtnHandler}
-          className="next-btn absolute right-[-10px] top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-md shadow-gray-400 rounded-full max-md:hidden"
+          className="next-btn absolute right-[-10px] top-1/2 z-[2] w-[70px] h-[70px] bg-white shadow-md shadow-gray-400 rounded-full max-md:hidden max-sm:hidden"
         >
           <img
             src={arrow}
